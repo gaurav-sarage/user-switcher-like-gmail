@@ -17,6 +17,32 @@ const MyApp = ({ Component, pageProps }) => {
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
+
+      {/*If the route is for home, sign-in or sign-up: show them without checks*/}
+
+      {publicPages.includes(router.pathname) ? (
+        <Component {...pageProps} />
+      ) : (
+        <>
+          <SignedIn>
+            <Component {...pageProps} />
+          </SignedIn>
+
+          <SignedOut>
+            <main>
+              <p>
+                Please{" "}
+                <Link href="/sign-in">
+                  <a>Sign In</a>
+                </Link>{" "}
+                to access the page
+              </p>
+            </main>
+          </SignedOut>
+        </>
+      )}
     </ClerkProvider>
-  )
-}
+  );
+};
+
+export default MyApp;
